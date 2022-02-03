@@ -11,13 +11,23 @@ const Star = ({ selected = false, onSelect }: StarProps) => (
 
 const createArray = (length: number) => [...Array(length)];
 
-export default function StarRating({ styles = {}, totalStars = 5, ...props }) {
-  const [selectedStars, setSelectedStars] = useState(3);
-
+export default function StarRating({ totalStars = 5, selectedStars = 0 }) {
   return (
-    <div style={{ padding: 5, ...styles }} {...props}>
-      {createArray(totalStars).map((_n, i) => <Star key={i} selected={selectedStars > i} onSelect={() => setSelectedStars(i + 1)} />)}
-      <p>{selectedStars} of {totalStars} stars</p>
-    </div>
+    <>
+      {
+        createArray(totalStars).map((n, i) => <Star key={i} selected={selectedStars > i} />)
+      }
+    </>
   )
 }
+
+// export default function StarRating({ styles = {}, totalStars = 5, ...props }) {
+//   const [selectedStars, setSelectedStars] = useState(3);
+
+//   return (
+//     <div style={{ padding: 5, ...styles }} {...props}>
+//       {createArray(totalStars).map((_n, i) => <Star key={i} selected={selectedStars > i} onSelect={() => setSelectedStars(i + 1)} />)}
+//       <p>{selectedStars} of {totalStars} stars</p>
+//     </div>
+//   )
+// }
