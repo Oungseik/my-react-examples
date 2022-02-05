@@ -4,15 +4,18 @@ interface AddColorFormProps {
   onNewColor: (title: string, color: string) => void;
 }
 
-export default function AddColorForm({ onNewColor = f => f }: AddColorFormProps) {
+export default function AddColorForm({
+  onNewColor = f => f,
+}: AddColorFormProps) {
   const [titleProps, resetTitle] = useInput("");
   const [colorProps, resetColor] = useInput("#000000");
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    onNewColor(titleProps.value, colorProps.value);
     resetTitle();
     resetColor();
-  }
+  };
 
   return (
     <form onSubmit={submit}>
@@ -20,6 +23,5 @@ export default function AddColorForm({ onNewColor = f => f }: AddColorFormProps)
       <input {...colorProps} type="color" required />
       <button>ADD</button>
     </form>
-  )
+  );
 }
-
