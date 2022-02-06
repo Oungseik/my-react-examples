@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ColorContext } from "../contexts/ColorProvider";
 
 type UseInputReturnType = [
   {
@@ -23,3 +24,6 @@ export const useInput = (initialValue: string) => {
 
   return result;
 };
+
+export const useColors = () => useContext(ColorContext);
+

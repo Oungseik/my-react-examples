@@ -1,18 +1,16 @@
-import { useInput } from "../../hooks";
+import { useInput, useColors } from "../../hooks";
+import { ColorContextType } from "../../contexts/ColorProvider";
 
-interface AddColorFormProps {
-  onNewColor: (title: string, color: string) => void;
-}
-
-export default function AddColorForm({
-  onNewColor = f => f,
-}: AddColorFormProps) {
+export default function AddColorForm() {
   const [titleProps, resetTitle] = useInput("");
   const [colorProps, resetColor] = useInput("#000000");
+  const { addColor } = useColors() as ColorContextType;
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    onNewColor(titleProps.value, colorProps.value);
+    if (addColor) {
+      addColor(titleProps.value, colorProps.value);
+    }
     resetTitle();
     resetColor();
   };

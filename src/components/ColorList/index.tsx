@@ -1,28 +1,21 @@
-import { ColorData } from "../../types";
 import Color from "./Color";
+import { useColors } from "../../hooks";
+import { ColorContextType } from "../../contexts/ColorProvider";
 
-interface ColorListProps {
-  colors: ColorData[];
-  onRemoveColor?: (arg: string) => void;
-  onRateColor?: (id: string, rating: number) => void;
-}
+export default function ColorList() {
+  const { colors, rateColor, removeColor } = useColors() as ColorContextType;
 
-export default function ColorList({
-  colors,
-  onRemoveColor,
-  onRateColor,
-}: ColorListProps) {
-  const colorsLength = colors.length;
-  if (!colorsLength) return <div>No colors listed!</div>;
+  const colorsLength = colors?.length || 0;
+  if (!colorsLength) return <div>No colors listed! (Add a Color)</div>;
 
   return (
-    <div>
-      {colors.map(color => (
+    <div className="color-list">
+      {colors?.map(color => (
         <Color
           key={color.id}
           {...color}
-          onRemove={onRemoveColor}
-          onRate={onRateColor}
+          onRate={rateColor}
+          onRemove={removeColor}
         />
       ))}
     </div>
